@@ -91,6 +91,10 @@ func SignPushMessage(message *PushMessage, secret string) error {
 
 	signature := computeSignatureWithKey(data, secret)
 
+	if message.Message.Attributes == nil {
+		message.Message.Attributes = map[string]string{}
+	}
+
 	message.Message.Attributes[signatureAttribute] = hex.EncodeToString(signature)
 
 	return nil
