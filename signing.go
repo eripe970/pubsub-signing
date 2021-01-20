@@ -83,13 +83,13 @@ func SignMessage(message *pubsub2.Message, secret string) error {
 }
 
 func SignPushMessage(message *PushMessage, secret string) error {
-	decodedMessage, err := hex.DecodeString(message.Message.Data)
+	data, err := base64.StdEncoding.DecodeString(message.Message.Data)
 
 	if err != nil {
 		return err
 	}
 
-	signature := computeSignatureWithKey(decodedMessage, secret)
+	signature := computeSignatureWithKey(data, secret)
 
 	message.Message.Attributes[signatureAttribute] = hex.EncodeToString(signature)
 
