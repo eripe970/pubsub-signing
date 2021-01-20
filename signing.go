@@ -82,6 +82,20 @@ func SignMessage(message *pubsub2.Message, secret string) error {
 	return nil
 }
 
+func SignPushMessage(message *PushMessage, secret string) error {
+	decodedMessage, err := hex.DecodeString(message.Message.Data)
+
+	if err != nil {
+		return err
+	}
+
+	signature := computeSignatureWithKey(decodedMessage, secret)
+
+	message.Message.Attributes[signatureAttribute] = hex.EncodeToString(signature)
+
+	return nil
+}
+
 func computeSignatureWithKey(payload []byte, secret string) []byte {
 	mac := hmac.New(sha256.New, []byte(secret))
 	mac.Write(payload)
