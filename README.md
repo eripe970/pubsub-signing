@@ -1,4 +1,4 @@
-# Pub/sub utilty for message signing
+# Pub/sub utility for message signing
 
 [![CircleCI](https://circleci.com/gh/eripe970/pubsub-signing.svg?style=shield)](https://circleci.com/gh/eripe970/pubsub-signing)
 
