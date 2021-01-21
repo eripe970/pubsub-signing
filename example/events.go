@@ -42,8 +42,6 @@ func PublishEvent(projectId, topic, secret string, event Event) error {
 		},
 	}
 
-	message.Attributes["event-type"] = event.Type()
-
 	err = signing.SignMessage(&message, secret)
 
 	if err != nil {
