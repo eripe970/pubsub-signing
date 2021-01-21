@@ -21,7 +21,7 @@ func main() {
 	r := gin.New()
 	r.Use(gin.Recovery())
 
-	r.GET("/generate-events", func(c *gin.Context) {
+	r.GET("/change-name", func(c *gin.Context) {
 
 		err := PublishEvent(projectId, topic, secret, UserChangedNameEvent{Name: "new-name"})
 
@@ -30,9 +30,7 @@ func main() {
 			return
 		}
 
-		c.JSON(200, gin.H{
-			"message": "generated-events",
-		})
+		c.Status(http.StatusOK)
 	})
 
 	r.POST("/events", func(c *gin.Context) {
